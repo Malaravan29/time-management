@@ -7,12 +7,12 @@ const EntrySchema = new mongoose.Schema({
   description: { type: String, required: true },
 });
 
-const UserTicketsSchema = new mongoose.Schema({
-  userId: { type: String, required: true },
+const EmployeeTicketsSchema = new mongoose.Schema({
+  employeeId: { type: String, required: true },
   date: { type: Date, required: true },
   entries: [EntrySchema], // Array of entries
 });
 
-const UserTickets = mongoose.model('Userdata', UserTicketsSchema);
+const EmployeeTickets = mongoose.model('Employeedata', EmployeeTicketsSchema);
 
-export default  UserTickets;
+export default  EmployeeTickets;

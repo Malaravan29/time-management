@@ -1,17 +1,17 @@
-import UserTickets from "../Models/usertimeModel.js";
+import UserTickets from "../Models/employeetimeModel.js";
 
 export const createUserTicket = async (req, res) => {
   try {
-    const { userId, date, entries } = req.body;
+    const { employeeId, date, entries } = req.body;
 
     // Validate request body
-    if (!userId || !date || !entries || !Array.isArray(entries)) {
+    if (!employeeId || !date || !entries || !Array.isArray(entries)) {
       return res.status(400).json({ error: "Invalid data provided." });
     }
 
     // Create a new UserTickets document
     const newTicket = new UserTickets({
-      userId,
+      employeeId,
       date,
       entries,
     });
