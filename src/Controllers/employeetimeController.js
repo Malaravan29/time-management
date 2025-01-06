@@ -10,6 +10,20 @@ export const createUserTicket = async (req, res) => {
       return res.status(400).json({ error: "Invalid data provided." });
     }
 
+    // Check if a ticket already exists for the given employeeId and date
+    const existingTicket = await UserTickets.findOne({ employeeId, date });
+
+    if (existingTicket) {
+      // Update the existing ticket by merging new entries with existing ones
+      existingTicket.entries = [...existingTicket.entries, ...entries];
+
+      // Update the existing ticket's entries with the new entries
+      // existingTicket.entries = entries;
+      
+      const updatedTicket = await existingTicket.save();
+      return res.status(200).json(updatedTicket);
+    }
+
     // Create a new UserTickets document
     const newTicket = new UserTickets({
       employeeId,
@@ -24,7 +38,9 @@ export const createUserTicket = async (req, res) => {
     res.status(201).json(savedTicket);
   } catch (error) {
     console.error("Error creating user ticket:", error);
-    res.status(500).json({ error: "An error occurred while creating the ticket." });
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the ticket." });
   }
 };
 
