@@ -15,10 +15,10 @@ export const createUserTicket = async (req, res) => {
 
     if (existingTicket) {
       // Update the existing ticket by merging new entries with existing ones
-      existingTicket.entries = [...existingTicket.entries, ...entries];
+      // existingTicket.entries = [...existingTicket.entries, ...entries];
 
       // Update the existing ticket's entries with the new entries
-      // existingTicket.entries = entries;
+      existingTicket.entries = entries;
       
       const updatedTicket = await existingTicket.save();
       return res.status(200).json(updatedTicket);
